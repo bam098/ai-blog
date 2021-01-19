@@ -4,8 +4,8 @@ title: About Me
 permalink: /about/
 ---
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+I'm interested in AI and IT Security. The blog[^1] is meant to accompany me while I'm learning about these topics.
 
 
 
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+[^1]:This blog is powered by **[fastpages](https://github.com/fastai/fastpages)**.
