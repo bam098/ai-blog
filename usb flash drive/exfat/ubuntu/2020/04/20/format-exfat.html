@@ -4,22 +4,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Format Portable Drives as exFat to use them under Linux, Windows and MacOS | bam098 - ai blog</title>
+<title>Format Portable Drives as exFat to use them under Linux, Windows and MacOS | bam098</title>
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Format Portable Drives as exFat to use them under Linux, Windows and MacOS" />
 <meta name="author" content="bam098" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A tutorial about how to format a portable drive as exFat on Ubuntu." />
 <meta property="og:description" content="A tutorial about how to format a portable drive as exFat on Ubuntu." />
-<link rel="canonical" href="https://bam098.github.io/ai-blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html" />
-<meta property="og:url" content="https://bam098.github.io/ai-blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html" />
-<meta property="og:site_name" content="bam098 - ai blog" />
+<link rel="canonical" href="https://bam098.github.io/blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html" />
+<meta property="og:url" content="https://bam098.github.io/blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html" />
+<meta property="og:site_name" content="bam098" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://bam098.github.io/ai-blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html","@type":"BlogPosting","headline":"Format Portable Drives as exFat to use them under Linux, Windows and MacOS","dateModified":"2020-04-20T00:00:00-05:00","datePublished":"2020-04-20T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bam098.github.io/ai-blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html"},"author":{"@type":"Person","name":"bam098"},"description":"A tutorial about how to format a portable drive as exFat on Ubuntu.","@context":"https://schema.org"}</script>
+{"url":"https://bam098.github.io/blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html","@type":"BlogPosting","headline":"Format Portable Drives as exFat to use them under Linux, Windows and MacOS","dateModified":"2020-04-20T00:00:00-05:00","datePublished":"2020-04-20T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bam098.github.io/blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html"},"author":{"@type":"Person","name":"bam098"},"description":"A tutorial about how to format a portable drive as exFat on Ubuntu.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/ai-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://bam098.github.io/ai-blog/feed.xml" title="bam098 - ai blog" /><link rel="shortcut icon" type="image/x-icon" href="/ai-blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://bam098.github.io/blog/feed.xml" title="bam098" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
@@ -70,7 +70,7 @@ window.onload = wrap_img;
 </head>
 <body><header class="site-header">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/ai-blog/">bam098 - ai blog</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">bam098</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -80,7 +80,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/ai-blog/about/">About Me</a><a class="page-link" href="/ai-blog/search/">Search</a><a class="page-link" href="/ai-blog/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -103,13 +103,13 @@ window.onload = wrap_img;
     
       <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
       
-        <a class="category-tags-link" href="/ai-blog/categories/#USB Flash Drive">USB Flash Drive</a>
+        <a class="category-tags-link" href="/blog/categories/#USB Flash Drive">USB Flash Drive</a>
         &nbsp;
       
-        <a class="category-tags-link" href="/ai-blog/categories/#exFat">exFat</a>
+        <a class="category-tags-link" href="/blog/categories/#exFat">exFat</a>
         &nbsp;
       
-        <a class="category-tags-link" href="/ai-blog/categories/#Ubuntu">Ubuntu</a>
+        <a class="category-tags-link" href="/blog/categories/#Ubuntu">Ubuntu</a>
         
       
       </p>
@@ -1132,20 +1132,20 @@ File system checking finished. No errors found.</code></pre>
 
 
 
-  </div><a class="u-url" href="/ai-blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html" hidden></a>
+  </div><a class="u-url" href="/blog/usb%20flash%20drive/exfat/ubuntu/2020/04/20/format-exfat.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
-  <data class="u-url" href="/ai-blog/"></data>
+  <data class="u-url" href="/blog/"></data>
 
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
       <div class="footer-col">
         <p class="feed-subscribe">
-          <a href="/ai-blog/feed.xml">
+          <a href="/blog/feed.xml">
             <svg class="svg-icon orange">
-              <use xlink:href="/ai-blog/assets/minima-social-icons.svg#rss"></use>
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
             </svg><span>Subscribe</span>
           </a>
         </p>
@@ -1155,7 +1155,7 @@ File system checking finished. No errors found.</code></pre>
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/bam098" title="bam098"><svg class="svg-icon grey"><use xlink:href="/ai-blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/_bam098" title="_bam098"><svg class="svg-icon grey"><use xlink:href="/ai-blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/bam098" title="bam098"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/_bam098" title="_bam098"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
 </div>
 
   </div>
