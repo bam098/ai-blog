@@ -131,12 +131,7 @@ window.onload = wrap_img;
     </a>
 </div>
 
-          <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/bam098/blog/master?filepath=_notebooks%2F2020-04-07-submitting-to-kaggle.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
+          
           <div class="px-2">
     <a href="https://colab.research.google.com/github/bam098/blog/blob/master/_notebooks/2020-04-07-submitting-to-kaggle.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
@@ -157,14 +152,14 @@ window.onload = wrap_img;
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> I showed how to train a CNN based model for classifying images of distracted drivers using the <a href="https://docs.fast.ai/">fastai library</a>. The images came from the training set of the <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection">State Farm Distracted Driver Detection competition</a> on <a href="https://www.kaggle.com/">Kaggle</a>. In this blog post I want to show how to create predictions for the images of the competition's test set using the trained model and how to submit these predictions to Kaggle.</p>
+<p>In <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> I showed how to train a CNN based model for classifying images of distracted drivers using the <a href="https://fastai1.fast.ai/">fastai library</a>. The images came from the training set of the <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection">State Farm Distracted Driver Detection competition</a> on <a href="https://www.kaggle.com/">Kaggle</a>. In this blog post I want to show how to create predictions for the images of the competition's test set using the trained model and how to submit these predictions to Kaggle.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Neural network based models usually need to be trained on a <a href="https://de.wikipedia.org/wiki/CUDA">CUDA</a> suitable <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a>. Unfortunately, my local machine doesn't contain such a GPU. However, there are cloud providers that offer machines with such GPUs. <a href="https://colab.research.google.com/">Google Colab</a> is one of these providers that even offers an option for free GPU access. As a result, I used Google Colab to train my model. You can read in <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> how I did this.</p>
+<p>Neural network based models usually need to be trained on a <a href="https://de.wikipedia.org/wiki/CUDA">CUDA</a> suitable <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a>. Unfortunately, my local machine doesn't contain such a GPU. However, there are cloud providers that offer machines with such GPUs. <a href="https://colab.research.google.com/">Google Colab</a> is one of these providers that even offers an option for free GPU access. As a result, I used Google Colab to train my model. You can read in <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> how I did this.</p>
 <p>Now, I need to use my trained model to make predictions for the images of the test set. Theoretically I could do this on Google Colab as well. However, in practice I encountered a problem. The test set of the State Farm Distracted Driver Detection competition contains a huge amount of images in the test set folder. This is problematic, because Google Colab seems to have <a href="https://stackoverflow.com/questions/54973331/input-output-error-while-using-google-colab-with-google-drive/54974310#54974310">problems</a> accessing folders with many files. Unfortunately, I haven't found a good solution to this problem, yet. The only options that came to my mind were: 1) Splitting the test set into multiple groups and store each group in an own folder or 2) download my trained model from Google Colab to my local machine to create the predictions there. The first option has the disadvantage that I need to do the splitting on my local machine and upload each folder to Google Colab then, since I can't even access the test set folder on Google Colab for the splitting. This seems to be a lot of work and it could take a long time to upload the folders. The second option has the disadvantage that it will take a long time to create the predictions, because I only can use the CPU for this and not a GPU. To avoid time consuming experiments to find out how many files in a folder can be handled by Google Colab,  I decided for the second option. It's also not a good option, but let's try it.</p>
 
 </div>
@@ -173,7 +168,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><div class="flash flash-warn">
-    <svg class="octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <svg class="octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
     <strong>Important: </strong>In this tutorial I switch from Google Colab to my local machine. As a result, I need to download my trained model from Google Colab as well as the <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">dataset</a> of the Kaggle competition to my local machine before running any code.
 </div></p>
 
@@ -214,20 +209,30 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Load-the-Test-Set">Load the Test Set<a class="anchor-link" href="#Load-the-Test-Set"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I described how to load the training data using the fastai library in <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a>. Now, I want to show how to load the test data. However, since loading the test data is strongly coupled to loading the training data when using fastai, I'm going to briefly review how to load the training data as well.</p>
+<p><div class="flash flash-warn">
+    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <strong>Important: </strong>The code shown in the blog post uses the old fastai v1 version. For the current fastai version check out the <a href="https://docs.fast.ai/">fastai docs</a>.
+</div></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First, we need to run some magics and check the versions of PyTorch and fastai as always. We should make sure that we use the same versions of PyTorch and fastai that we also used for training the model on Google Colab. I recommend installing the libraries using conda on your local machine. You can read more about how to do that <a href="https://github.com/fastai/fastai/blob/master/README.md#installation">here</a>.</p>
+<h2 id="Load-the-Test-Set">Load the Test Set<a class="anchor-link" href="#Load-the-Test-Set"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I described how to load the training data using the fastai library in <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a>. Now, I want to show how to load the test data. However, since loading the test data is strongly coupled to loading the training data when using fastai, I'm going to briefly review how to load the training data as well.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First, we need to run some magics and check the versions of PyTorch and fastai as always. We should make sure that we use the same versions of PyTorch and fastai that we also used for training the model on Google Colab. I recommend installing the libraries using conda on your local machine. You can read more about how to do that <a href="https://github.com/fastai/fastai1/blob/master/README.md#installation">here</a>.</p>
 
 </div>
 </div>
@@ -521,7 +526,7 @@ fastai version:      1.0.60
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then, we need to take a certain amount of images from the training set to create our validation set. To able to train a proper model we need to make sure that there isn't any driver that is shown on images of the training set and the validation set at the same time. See <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> for more details why this is important. To obtain the information which images contain which drivers (also called subjects) we need to load the <code>driver_imgs_list.csv</code> file into a pandas data frame.</p>
+<p>Then, we need to take a certain amount of images from the training set to create our validation set. To able to train a proper model we need to make sure that there isn't any driver that is shown on images of the training set and the validation set at the same time. See <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> for more details why this is important. To obtain the information which images contain which drivers (also called subjects) we need to load the <code>driver_imgs_list.csv</code> file into a pandas data frame.</p>
 
 </div>
 </div>
@@ -1087,7 +1092,7 @@ subjects: [&#39;p002&#39;, &#39;p012&#39;, &#39;p014&#39;, &#39;p015&#39;, &#39;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we need to load the test data. We can load it as <a href="https://docs.fast.ai/vision.data.html#ItemList-specific-to-vision">ImageList</a> using the <a href="https://docs.fast.ai/vision.data.html#ImageList.from_folder">from_folder</a> method.</p>
+<p>Next, we need to load the test data. We can load it as <a href="https://fastai1.fast.ai/vision.data.html#ItemList-specific-to-vision">ImageList</a> using the <a href="https://fastai1.fast.ai/vision.data.html#ImageList.from_folder">from_folder</a> method.</p>
 
 </div>
 </div>
@@ -1129,7 +1134,7 @@ Path: ../data/state-farm-ddd/imgs/test</pre>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we need to create a <a href="https://docs.fast.ai/vision.data.html#ImageDataBunch">data bunch</a> object using the <a href="https://docs.fast.ai/data_block.html">data block API</a> from fastai. The data bunch object contains the training, validation and test set as well as various data transformations. Actually, I created the data bunch object in <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> in almost the same way. However, now I also need to add <a href="https://docs.fast.ai/data_block.html#LabelLists.add_test">add_test</a> here to specify our test set.</p>
+<p>Finally, we need to create a <a href="https://fastai1.fast.ai/vision.data.html#ImageDataBunch">data bunch</a> object using the <a href="https://fastai1.fast.ai/data_block.html">data block API</a> from fastai. The data bunch object contains the training, validation and test set as well as various data transformations. Actually, I created the data bunch object in <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">my last blog post</a> in almost the same way. However, now I also need to add <a href="https://fastai1.fast.ai/data_block.html#LabelLists.add_test">add_test</a> here to specify our test set.</p>
 
 </div>
 </div>
@@ -1404,7 +1409,7 @@ Path: ../data/state-farm-ddd/imgs/test</pre>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To make sure that we loaded the model successfully we can check its performance on the validation set using the <a href="https://docs.fast.ai/basic_train.html#Learner.validate">validate</a> method. Since I only could use the CPU on my local machine to check model performance on the validation set, it took about 30 minutes to run through.</p>
+<p>To make sure that we loaded the model successfully we can check its performance on the validation set using the <a href="https://fastai1.fast.ai/basic_train.html#Learner.validate">validate</a> method. Since I only could use the CPU on my local machine to check model performance on the validation set, it took about 30 minutes to run through.</p>
 
 </div>
 </div>
@@ -1460,7 +1465,7 @@ Path: ../data/state-farm-ddd/imgs/test</pre>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, let's use the model to make predictions for the test set images. Therefor we need to use the <a href="https://docs.fast.ai/basic_train.html#get_preds">get_preds</a> method. It took approximately 12 hours to run through.</p>
+<p>Now, let's use the model to make predictions for the test set images. Therefor we need to use the <a href="https://fastai1.fast.ai/basic_train.html#get_preds">get_preds</a> method. It took approximately 12 hours to run through.</p>
 
 </div>
 </div>
@@ -2789,7 +2794,7 @@ Successfully submitted to State Farm Distracted Driver Detection</pre>
         </p>
       </div>
       <div class="footer-col">
-        <p></p>
+        <p>A blog about various topics in the field of Artificial Intelligence and IT Security.</p>
       </div>
     </div>
 

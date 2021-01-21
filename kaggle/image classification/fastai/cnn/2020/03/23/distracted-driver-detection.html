@@ -128,12 +128,7 @@ window.onload = wrap_img;
     </a>
 </div>
 
-          <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/bam098/blog/master?filepath=_notebooks%2F2020-03-23-distracted-driver-detection.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
+          
           <div class="px-2">
     <a href="https://colab.research.google.com/github/bam098/blog/blob/master/_notebooks/2020-03-23-distracted-driver-detection.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
@@ -175,7 +170,7 @@ window.onload = wrap_img;
 <li><code>c8</code>: hair and makup</li>
 <li><code>c9</code>: talking to passenger</li>
 </ul>
-<p>I already showed how to download the dataset on <a href="https://colab.research.google.com/">Google Colab</a> in <a href="https://bam098.github.io/ai-blog/kaggle/google%20colab/2020/03/15/kaggle-download-colab.html">my last blog post</a>. I put the download into the folder <code>/content/gdrive/My Drive/fastai-v3/data/state-farm-ddd</code>. It contains the following files and directories:</p>
+<p>I already showed how to download the dataset on <a href="https://colab.research.google.com/">Google Colab</a> in <a href="https://bam098.github.io/blog/kaggle/google%20colab/2020/03/15/kaggle-download-colab.html">my last blog post</a>. I put the download into the folder <code>/content/gdrive/My Drive/fastai-v3/data/state-farm-ddd</code>. It contains the following files and directories:</p>
 <ul>
 <li><code>img</code> directory: folder containing the training and test images</li>
 <li><code>sample_submission.csv</code>: an example file showing how to submit to Kaggle</li>
@@ -249,79 +244,21 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I want to use the <a href="https://docs.fast.ai/">fastai</a> library for training our model, since it makes it possible to train an image classification model in a quick and easy way. Fastai is built on top of <a href="https://pytorch.org/">PyTorch</a>. Both libraries are already pre-installed on Google Colab. However, to make sure that we have the lastest version of both libraries I want to re-install them. Fastai offers a script to setup its library on Google Colab. You can find more detailed setup instructions <a href="https://course.fast.ai/start_colab.html">here</a>.</p>
+<p>I want to use the <a href="https://fastai1.fast.ai/">fastai</a> library for training our model, since it makes it possible to train an image classification model in a quick and easy way. Fastai is built on top of <a href="https://pytorch.org/">PyTorch</a>. Both libraries are already pre-installed on Google Colab. However, to make sure that we have the lastest version of both libraries I want to re-install them. Fastai offers a script to setup its library on Google Colab. You can find more detailed setup instructions <a href="https://course.fast.ai/start_colab.html">here</a>.</p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> pip uninstall torch torchvision fastai -y
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Uninstalling torch-1.4.0:
-  Successfully uninstalled torch-1.4.0
-Uninstalling torchvision-0.5.0:
-  Successfully uninstalled torchvision-0.5.0
-Uninstalling fastai-1.0.60:
-  Successfully uninstalled fastai-1.0.60
-</pre>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div class="flash flash-warn">
+    <svg class="octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <strong>Important: </strong>The code shown in the blog post uses the old fastai v1 version. For the current fastai version check out the <a href="https://docs.fast.ai/">fastai docs</a>.
+</div></p>
 
 </div>
 </div>
-
 </div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> curl -s https://course.fast.ai/setup/colab <span class="p">|</span> bash
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Updating fastai...
-Done.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, we need to run some some magics. We usually should do that at the beginning of every notebook. They are responsible for showing <a href="https://matplotlib.org/">matplotlib</a> plots inside the notebook and for automatic reloading the notebook if some underlying library code changes.</p>
@@ -1053,7 +990,7 @@ subjects: [&#39;p002&#39;, &#39;p012&#39;, &#39;p014&#39;, &#39;p015&#39;, &#39;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Okay, the amount of images per class don't differ too much between the different classes. So, our validation set seems to be okay. As a result, we can finally load the training and the validation set now.</p>
-<p>As I already mentioned above I want to use the fastai library to load the data. The fastai library offers several ways to do that. You can read more about it in its <a href="https://docs.fast.ai/data_block.html">documentation</a>. However, since we already have a Pandas dataframe, it seems to me that loading the data using that dataframe is the easiest option. Moreover, through a dataframe we can also handle the creation of the validation set according to the drivers in an easy way.</p>
+<p>As I already mentioned above I want to use the fastai library to load the data. The fastai library offers several ways to do that. However, since we already have a Pandas dataframe, it seems to me that loading the data using that dataframe is the easiest option. Moreover, through a dataframe we can also handle the creation of the validation set according to the drivers in an easy way.</p>
 <p>Before we can load the data we need to adjust our dataframe a bit. The values of the <code>img</code> column need to include the path to each image and not only the image file name. Then, to create a validation set according to the drivers later we need to add a new column with boolean values to our dataframe indicating whether an image belongs to the validation set or not (if not, it belongs to the training set). I want to call this new column <code>is_valid</code>. After creating this new column we can remove the <code>subject</code> column from the dataframe.</p>
 
 </div>
@@ -1219,13 +1156,13 @@ subjects: [&#39;p002&#39;, &#39;p012&#39;, &#39;p014&#39;, &#39;p015&#39;, &#39;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we can load the dataset using the <a href="https://docs.fast.ai/data_block.html">data blocks API</a> of fastai. This encompasses several building blocks:</p>
+<p>Now we can load the dataset using the <a href="https://fastai1.fast.ai/data_block.html">data blocks API</a> of fastai. This encompasses several building blocks:</p>
 <ul>
 <li>Create an image list from the <code>img</code> column (index: 1) of our dataframe </li>
 <li>Split the dataset into training and validation set using the <code>is_valid</code> column (index: 2) of the dataframe</li>
 <li>Load the labels for each image from the <code>classname</code> column (index: 0) of the dataframe</li>
 <li>Apply any transformations to the images like e.g. data augmentation or resizing of the images</li>
-<li>Specify a certain batch size and create a <a href="https://docs.fast.ai/data_block.html#LabelLists.databunch">databunch object</a> </li>
+<li>Specify a certain batch size and create a <a href="https://fastai1.fast.ai/data_block.html#LabelLists.databunch">databunch object</a> </li>
 <li>Normalize the images</li>
 </ul>
 
@@ -1234,9 +1171,9 @@ subjects: [&#39;p002&#39;, &#39;p012&#39;, &#39;p014&#39;, &#39;p015&#39;, &#39;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Due to technical reasons, it is necessary that all of our images are of the same size for model training. Moreover, they also shouldn't be too large. As a result, we need to resize all of them. Since I want to use <a href="https://docs.fast.ai/vision.learner.html#Transfer-learning">transfer learning</a> later to train our model, it is usually a good idea to set the image size to 224x224x3. This is caused by the fact that most pre-trained models that are used for transfer learning are trained with images of this size. However, since the images of our dataset contain a lot of details that are import for classifying them, I want to go a bit bigger here. As a result, I decided to use a size of 299x299x3. I probably don't want to go bigger than that for now, because bigger images also increase model training time and memory consumption later.</p>
+<p>Due to technical reasons, it is necessary that all of our images are of the same size for model training. Moreover, they also shouldn't be too large. As a result, we need to resize all of them. Since I want to use <a href="https://fastai1.fast.ai/vision.learner.html#Transfer-learning">transfer learning</a> later to train our model, it is usually a good idea to set the image size to 224x224x3. This is caused by the fact that most pre-trained models that are used for transfer learning are trained with images of this size. However, since the images of our dataset contain a lot of details that are import for classifying them, I want to go a bit bigger here. As a result, I decided to use a size of 299x299x3. I probably don't want to go bigger than that for now, because bigger images also increase model training time and memory consumption later.</p>
 <p>When training the model, the images are fed into the network in batches. The batch size is actually a hyper-parameter that will influence model training. Usually smaller batch sizes have a <a href="http://neuralnetworksanddeeplearning.com/chap3.html#overfitting_and_regularization">regularization</a> effect on the model. However, I'm going to use the <a href="https://sgugger.github.io/the-1cycle-policy.html">1-cycle-policy</a> to train our model, which should be used together with a batch size as large as possible (read this <a href="https://arxiv.org/abs/1803.09820">paper</a> for more details). As a result I set the batch size to 32. You can also try to increase the batch size, but at some point you will run out of GPU memory.</p>
-<p>However, besides feeding the original images into the neural network it is also a good idea to change these images a little bit and use the resulting new images for training as well. This way we are able to get more variation into our training set which is an additonal way to avoid model overfitting. There are many ways to change the images. All of these techniques are summarized under the term data augmentation. I don't want to go into too much detail now, but you can read more about it <a href="https://docs.fast.ai/vision.transform.html#Data-augmentation">here</a>. Fastai offers some standard data augmentation operations which we can load with the method <code>get_transforms</code>. The only operation which we might not want to use is flipping the images. Otherwise our model might get confused with e.g. images of the classes <code>texting (right hand)</code> and <code>texting (left hand)</code>.</p>
+<p>However, besides feeding the original images into the neural network it is also a good idea to change these images a little bit and use the resulting new images for training as well. This way we are able to get more variation into our training set which is an additonal way to avoid model overfitting. There are many ways to change the images. All of these techniques are summarized under the term data augmentation. I don't want to go into too much detail now, but you can read more about it <a href="https://fastai1.fast.ai/vision.transform.html#Data-augmentation">here</a>. Fastai offers some standard data augmentation operations which we can load with the method <code>get_transforms</code>. The only operation which we might not want to use is flipping the images. Otherwise our model might get confused with e.g. images of the classes <code>texting (right hand)</code> and <code>texting (left hand)</code>.</p>
 <p>After creating these additional images through data augmentation, we need to normalize our whole dataset (i.e. our original images and the images created through data augmentation) in a last step. Normalization often improves model training. You can find more information about how to normalize data and why it is useful <a href="https://www.youtube.com/watch?v=FDCfw-YqWTE">here</a> and <a href="https://en.wikipedia.org/wiki/Standard_score">here</a>. For now it is only important to know that we need the following two statistics to normalize our images: a mean to shift and a standard deviation to scale the image data. We can either calculate mean and standard deviation from our own data or we can use a pre-computed mean and standard deviation from a standard dataset like <a href="https://en.wikipedia.org/wiki/ImageNet">ImageNet</a>. Since ImageNet has a lot more data, its mean and standard deviation are probably more accurate. Furthermore, our pre-trained model that we are going to use was also pre-trained on ImageNet. Thus it probably also makes sense to use its image statics.</p>
 
 </div>
@@ -1279,7 +1216,7 @@ subjects: [&#39;p002&#39;, &#39;p012&#39;, &#39;p014&#39;, &#39;p015&#39;, &#39;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><div class="flash flash-success">
     <svg class="octicon octicon-checklist octicon octicon-checklist" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.736a.75.75 0 101.5 0V1.75A1.75 1.75 0 0011.25 0h-8.5A1.75 1.75 0 001 1.75v11.5c0 .966.784 1.75 1.75 1.75h3.17a.75.75 0 000-1.5H2.75a.25.25 0 01-.25-.25V1.75zM4.75 4a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM4 7.75A.75.75 0 014.75 7h2a.75.75 0 010 1.5h-2A.75.75 0 014 7.75zm11.774 3.537a.75.75 0 00-1.048-1.074L10.7 14.145 9.281 12.72a.75.75 0 00-1.062 1.058l1.943 1.95a.75.75 0 001.055.008l4.557-4.45z"></path></svg>
-    <strong>Tip: </strong>You can find information about the data block API of fastai v1 in the <a href="https://docs.fast.ai/data_block.html">current documentation</a>. Furthermore, there is also already some information about the data block API of fastai v2 in this <a href="https://muellerzr.github.io/fastblog/2020/03/21/DataBlockAPI.html">blog post</a> of <a href="https://twitter.com/TheZachMueller">Zach Mueller</a> and this <a href="https://arxiv.org/abs/2002.04688">paper</a> from <a href="https://twitter.com/jeremyphoward">Jeremy Howard</a> and <a href="https://twitter.com/GuggerSylvain">Sylvain Gugger</a>. 
+    <strong>Tip: </strong>You can find information about the data block API of fastai v1 in the <a href="https://fastai1.fast.ai/data_block.html">its documentation</a>. Furthermore, there is also already some information about the data block API of fastai v2 in this <a href="https://muellerzr.github.io/fastblog/datablock/2020/03/21/DataBlockAPI.html">blog post</a> of <a href="https://twitter.com/TheZachMueller">Zach Mueller</a> and this <a href="https://arxiv.org/abs/2002.04688">paper</a> from <a href="https://twitter.com/jeremyphoward">Jeremy Howard</a> and <a href="https://twitter.com/GuggerSylvain">Sylvain Gugger</a>. 
 </div></p>
 
 </div>
@@ -10134,15 +10071,15 @@ uRl2afeIAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Before we can train a neural network based model we need to decide which network architecture we want to use. For image classification we usually use a <a href="https://www.youtube.com/watch?v=bNb2fEVKeEo">Convolutional Neural Network</a> (often abbreviated with CNN). The most common CNN based architecture for image classification nowadays is a <a href="https://arxiv.org/abs/1512.03385">Residual Network</a> based architecture (often abbreviated with ResNet). Fastai offers such an architecture in <a href="https://docs.fast.ai/vision.models.html">several sizes</a>. I decided to use a ResNet50 (i.e. it consists of 50 layers) here, since it is a standard model architecture for image classification.</p>
-<p>Furthermore, as already mentioned above I don't want to train a model from scratch, since this could be very complicated. I rather want to use a pre-trained model. This process is called transfer learning. The advantage of using <a href="https://docs.fast.ai/vision.learner.html#Transfer-learning">transfer learning</a> is that we don't need to start training our model using zero knowledge. Although the pre-trained model was trained with a totally different dataset (usually ImageNet) it probably contains at least some useful information. To see this we need to understand how neural network based training works. Again, I don't want to go into too much detail here, but you can think of it as follows. To train a neural network the network needs to look at many different images and try to identify class specific features in these images in a hierachical way. It starts by searching for low level features like e.g. edges and then combines these to simple shaps. These simple shaps are further combined to more complex shapes and so on. At the end the network hopefully finds highly characteristic features for each class (you can read more about it <a href="https://arxiv.org/abs/1311.2901">here</a>). Although these characteristic features most likely won't be useful for our dataset, the lower level features (e.g. edges) probably will be. Thus, transfer learning is always recommended to use. As a result, in fastai when selecting a standard model architecture it will use the corresponding pre-trained model as default.</p>
+<p>Before we can train a neural network based model we need to decide which network architecture we want to use. For image classification we usually use a <a href="https://www.youtube.com/watch?v=bNb2fEVKeEo">Convolutional Neural Network</a> (often abbreviated with CNN). The most common CNN based architecture for image classification nowadays is a <a href="https://arxiv.org/abs/1512.03385">Residual Network</a> based architecture (often abbreviated with ResNet). Fastai offers such an architecture in <a href="https://fastai1.fast.ai/vision.models.html">several sizes</a>. I decided to use a ResNet50 (i.e. it consists of 50 layers) here, since it is a standard model architecture for image classification.</p>
+<p>Furthermore, as already mentioned above I don't want to train a model from scratch, since this could be very complicated. I rather want to use a pre-trained model. This process is called transfer learning. The advantage of using <a href="https://fastai1.fast.ai/vision.learner.html#Transfer-learning">transfer learning</a> is that we don't need to start training our model using zero knowledge. Although the pre-trained model was trained with a totally different dataset (usually ImageNet) it probably contains at least some useful information. To see this we need to understand how neural network based training works. Again, I don't want to go into too much detail here, but you can think of it as follows. To train a neural network the network needs to look at many different images and try to identify class specific features in these images in a hierachical way. It starts by searching for low level features like e.g. edges and then combines these to simple shaps. These simple shaps are further combined to more complex shapes and so on. At the end the network hopefully finds highly characteristic features for each class (you can read more about it <a href="https://arxiv.org/abs/1311.2901">here</a>). Although these characteristic features most likely won't be useful for our dataset, the lower level features (e.g. edges) probably will be. Thus, transfer learning is always recommended to use. As a result, in fastai when selecting a standard model architecture it will use the corresponding pre-trained model as default.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>But how can we train a model with fastai? To be able to train a model we need to create a model <a href="https://docs.fast.ai/basic_train.html">learner</a> first. It requires our data, the model architecture (with the pre-trained model weights) and a <a href="https://docs.fast.ai/metrics.html">metric</a> to evaluate the model as input. I decided to use <a href="https://en.wikipedia.org/wiki/Precision_and_recall">accuracy</a> as the metric here, since it is a standard metric that is often used in practice.</p>
+<p>But how can we train a model with fastai? To be able to train a model we need to create a model <a href="https://fastai1.fast.ai/basic_train.html">learner</a> first. It requires our data, the model architecture (with the pre-trained model weights) and a <a href="https://fastai1.fast.ai/metrics.html">metric</a> to evaluate the model as input. I decided to use <a href="https://en.wikipedia.org/wiki/Precision_and_recall">accuracy</a> as the metric here, since it is a standard metric that is often used in practice.</p>
 
 </div>
 </div>
@@ -10812,7 +10749,7 @@ pZTyc5oIlFLKz2kiUEopP/f/VzEBWQxjIC0AAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, let's evaluate our model. What mistakes does our model make? In which cases is it most wrong? To find this out we can use the <a href="https://docs.fast.ai/vision.learner.html#ClassificationInterpretation">ClassificationInterpretation class</a> offered by fastai.</p>
+<p>Now, let's evaluate our model. What mistakes does our model make? In which cases is it most wrong? To find this out we can use the <a href="https://fastai1.fast.ai/vision.learner.html#ClassificationInterpretation">ClassificationInterpretation class</a> offered by fastai.</p>
 
 </div>
 </div>
@@ -21325,7 +21262,7 @@ I277AAAAAElFTkSuQmCC
         </p>
       </div>
       <div class="footer-col">
-        <p></p>
+        <p>A blog about various topics in the field of Artificial Intelligence and IT Security.</p>
       </div>
     </div>
 

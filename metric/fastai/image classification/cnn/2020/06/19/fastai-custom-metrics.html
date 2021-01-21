@@ -128,12 +128,7 @@ window.onload = wrap_img;
     </a>
 </div>
 
-          <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/bam098/blog/master?filepath=_notebooks%2F2020-06-19-fastai-custom-metrics.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
+          
           <div class="px-2">
     <a href="https://colab.research.google.com/github/bam098/blog/blob/master/_notebooks/2020-06-19-fastai-custom-metrics.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
@@ -154,49 +149,31 @@ window.onload = wrap_img;
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In an <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">earlier blog post</a> I described how to classify images of distracted drivers using the <a href="https://docs.fast.ai/index.html">fastai library</a>. The dataset, that I used to train my classification model with, came from the <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection">Distracted Driver Kaggle competition</a>. During model training I used the accuracy metric to report the performance of my model. However, if we take a closer look at the description of the <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/overview/evaluation">Distracted Driver Kaggle competition</a>, we can see that accuracy is actually not the evaluation metric that is supposed to be used for this competition. It is the multi-class logarithmic loss (log loss) instead!  Wait! Don't we already use the log loss for optimizing our model? Yes, we do! But we can also use it as an evaluation metric. Kaggle actually does this for many of its competitions. Okay, but what's the difference compared to accuracy? Well, accuracy counts the predictions that were actually correct. You can find more information about it <a href="https://en.wikipedia.org/wiki/Accuracy_and_precision">here</a> and <a href="https://www.datascienceblog.net/post/machine-learning/performance-measures-multi-class-problems/">here</a>. However, accuracy is not in every case a good evaluation metric because of its yes or no nature. The log loss on the other hand takes the uncertainty of the prediction into account regarding how far it is away from the actual target. You can find out more about it <a href="https://datawookie.netlify.app/blog/2015/12/making-sense-of-logarithmic-loss/">here</a> and <a href="http://wiki.fast.ai/index.php/Log_Loss">here</a>.</p>
+<p>In an <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">earlier blog post</a> I described how to classify images of distracted drivers using the <a href="https://fastai1.fast.ai/">fastai library</a>. The dataset, that I used to train my classification model with, came from the <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection">Distracted Driver Kaggle competition</a>. During model training I used the accuracy metric to report the performance of my model. However, if we take a closer look at the description of the <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/overview/evaluation">Distracted Driver Kaggle competition</a>, we can see that accuracy is actually not the evaluation metric that is supposed to be used for this competition. It is the multi-class logarithmic loss (log loss) instead!  Wait! Don't we already use the log loss for optimizing our model? Yes, we do! But we can also use it as an evaluation metric. Kaggle actually does this for many of its competitions. Okay, but what's the difference compared to accuracy? Well, accuracy counts the predictions that were actually correct. You can find more information about it <a href="https://en.wikipedia.org/wiki/Accuracy_and_precision">here</a> and <a href="https://www.datascienceblog.net/post/machine-learning/performance-measures-multi-class-problems/">here</a>. However, accuracy is not in every case a good evaluation metric because of its yes or no nature. The log loss on the other hand takes the uncertainty of the prediction into account regarding how far it is away from the actual target. You can find out more about it <a href="https://medium.com/@fzammito/whats-considered-a-good-log-loss-in-machine-learning-a529d400632d">here</a> and <a href="https://towardsdatascience.com/why-we-care-about-the-log-loss-50c00c8e777c">here</a>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>So, let's use the log loss as our evaluation metric. However, when we take a look into <a href="https://docs.fast.ai/metrics.html">fastai's documentation</a>, we can see that fastai actually doesn't offer a predefined function calculating the log loss metric. Before, when we were using the accuracy, we could simply use the predefined accuracy metric function from fastai. Now, we have to implement the log loss metric by ourselves and add it to our <a href="https://docs.fast.ai/basic_train.html#Learner">learner</a>. Well, actually we don't have to add the log loss as evaluation metric at all, since the log loss is also used for optimizing our model and thus fastai already shows it to us. Nevertheless, I still want to show how we can write a custom metric for fastai using the example of the log loss. Later we can use the same way as shown here to write other kinds of custom metrics for fastai.</p>
+<p><div class="flash flash-warn">
+    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <strong>Important: </strong>The code shown in the blog post uses the old fastai v1 version. For the current fastai version check out the <a href="https://docs.fast.ai/">fastai docs</a>.
+</div></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However, before we implement our custom metric let's make sure we have <a href="https://pytorch.org/">PyTorch</a> and fastai correctly installed. By the way, I'm using <a href="https://colab.research.google.com/">Google Colab</a> here. If you have an own machine with a <a href="https://en.wikipedia.org/wiki/CUDA">CUDA</a> suitable <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a>, you can also use that one of course.</p>
+<p>So, let's use the log loss as our evaluation metric. However, when we take a look into <a href="https://fastai1.fast.ai/metrics.html">fastai's documentation</a>, we can see that fastai actually doesn't offer a predefined function calculating the log loss metric. Before, when we were using the accuracy, we could simply use the predefined accuracy metric function from fastai. Now, we have to implement the log loss metric by ourselves and add it to our <a href="https://fastai1.fast.ai/basic_train.html#Learner">learner</a>. Well, actually we don't have to add the log loss as evaluation metric at all, since the log loss is also used for optimizing our model and thus fastai already shows it to us. Nevertheless, I still want to show how we can write a custom metric for fastai using the example of the log loss. Later we can use the same way as shown here to write other kinds of custom metrics for fastai.</p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> pip install --upgrade pip
-<span class="o">!</span> pip uninstall torch torchvision fastai -y
-<span class="o">!</span> curl -s https://course.fast.ai/setup/colab <span class="p">|</span> bash
-<span class="o">!</span> pip uninstall torch torchvision -y
-<span class="o">!</span> pip install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.4.0 <span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.5.0
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Okay, let's load the libraries.</p>
+<p>I'm using <a href="https://colab.research.google.com/">Google Colab</a> here. If you have an own machine with a <a href="https://en.wikipedia.org/wiki/CUDA">CUDA</a> suitable <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a>, you can also use that one of course. Okay, let's load the libraries.</p>
 
 </div>
 </div>
@@ -269,7 +246,7 @@ gpu:                 Tesla P100-PCIE-16GB
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Okay, let's implement our metric. The <a href="https://docs.fast.ai/metrics.html#Creating-your-own-metric">fastai documentation</a> shows how this can be done. At first I was a bit confused but they actually describe it quite clearly. First of all, we need to think about whether our metric is an average over all the elements in our dataset. Is this the case for the log loss? Let's take a look at the log loss formula.</p>
+<p>Okay, let's implement our metric. The <a href="https://fastai1.fast.ai/metrics.html#Creating-your-own-metric">fastai documentation</a> shows how this can be done. At first I was a bit confused but they actually describe it quite clearly. First of all, we need to think about whether our metric is an average over all the elements in our dataset. Is this the case for the log loss? Let's take a look at the log loss formula.</p>
 
 </div>
 </div>
@@ -333,7 +310,7 @@ $$logloss = -\frac{1}{N}\sum_{i=1}^N{\sum_{j=1}^M}y_{ij}log(p_{ij})$$
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>preds</code> are the network predictions for each sample of the batch (tensor of size <code>batch size</code> x <code>number of categories</code>). <code>targs</code> are the target category labels for each sample of the batch (tensor of size <code>batch size</code> x <code>1</code>). Since our network predictions <code>preds</code> are the predictions before applying the <a href="https://victorzhou.com/blog/softmax/">Softmax</a> function to them (in PyTorch the Softmax is part of the <a href="https://www.youtube.com/watch?v=tRsSi_sqXjI">CrossEntropy</a> loss function as alluded <a href="https://discuss.pytorch.org/t/multi-class-cross-entropy-loss-and-softmax-in-pytorch/24920/2">here</a> and <a href="https://forums.fast.ai/t/how-do-i-add-my-custom-callback-based-metric-to-the-ordinary-metrics-list/29525/7">here</a>), we need to apply Softmax manually to our predictions <code>preds</code> to receive our probabilities $p_{ij}$. Furthermore, due to potential computational inaccuracies we normalize all probabilites for each sample again (i.e. we divide each probability of a category by the sum of the probabilities of all categories) to make sure they really add up to 1 (as <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/overview/evaluation">alluded</a> by Kaggle). I'm actually not sure whether this is absolutely necessary, since I believe <a href="https://pytorch.org/docs/stable/nn.functional.html#torch.nn.functional.softmax">PyTorch's Softmax</a> function should already take care of it, but it doesn't hurt either. Then, due to <a href="http://wiki.fast.ai/index.php/Log_Loss#MinMax_Rule">mathematical reasons</a> we also need to apply the <a href="http://wiki.fast.ai/index.php/Log_Loss#MinMax_Rule">MinMax rule</a> on our probabilities.</p>
+<p><code>preds</code> are the network predictions for each sample of the batch (tensor of size <code>batch size</code> x <code>number of categories</code>). <code>targs</code> are the target category labels for each sample of the batch (tensor of size <code>batch size</code> x <code>1</code>). Since our network predictions <code>preds</code> are the predictions before applying the <a href="https://victorzhou.com/blog/softmax/">Softmax</a> function to them (in PyTorch the Softmax is part of the <a href="https://www.youtube.com/watch?v=tRsSi_sqXjI">CrossEntropy</a> loss function as alluded <a href="https://discuss.pytorch.org/t/multi-class-cross-entropy-loss-and-softmax-in-pytorch/24920/2">here</a> and <a href="https://forums.fast.ai/t/how-do-i-add-my-custom-callback-based-metric-to-the-ordinary-metrics-list/29525/7">here</a>), we need to apply Softmax manually to our predictions <code>preds</code> to receive our probabilities $p_{ij}$. Furthermore, due to potential computational inaccuracies we normalize all probabilites for each sample again (i.e. we divide each probability of a category by the sum of the probabilities of all categories) to make sure they really add up to 1 (as <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/overview/evaluation">alluded</a> by Kaggle). I'm actually not sure whether this is absolutely necessary, since I believe <a href="https://pytorch.org/docs/stable/nn.functional.html#torch.nn.functional.softmax">PyTorch's Softmax</a> function should already take care of it, but it doesn't hurt either. Then, due to <a href="https://medium.com/@ArjunThoughts/log-loss-function-machine-learning-error-measurement-metric-ccf50663af22">mathematical reasons</a> we also need to apply the <a href="https://medium.com/@ArjunThoughts/log-loss-function-machine-learning-error-measurement-metric-ccf50663af22">MinMax rule</a> on our probabilities.</p>
 
 </div>
 </div>
@@ -347,7 +324,7 @@ $$logloss = -\frac{1}{N}\sum_{i=1}^N{\sum_{j=1}^M}y_{ij}log(p_{ij})$$
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However, not every metric is an average over the whole dataset. This is actually the case for e.g. the <a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html">Precision</a> metric. Or we could even come up with totally different metrics like e.g. a metric that caluclates the maximal RAM usage during training. To implement metrics, that are not an average over all samples of a dataset, we need to use a callback. Check out the <a href="https://docs.fast.ai/metrics.html#Creating-your-own-metric">fastai documentation</a> to find out how this can be implemented. Our custom log loss metric could be written using a callback as follows.</p>
+<p>However, not every metric is an average over the whole dataset. This is actually the case for e.g. the <a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html">Precision</a> metric. Or we could even come up with totally different metrics like e.g. a metric that caluclates the maximal RAM usage during training. To implement metrics, that are not an average over all samples of a dataset, we need to use a callback. Check out the <a href="https://fastai1.fast.ai/metrics.html#Creating-your-own-metric">fastai documentation</a> to find out how this can be implemented. Our custom log loss metric could be written using a callback as follows.</p>
 
 </div>
 </div>
@@ -474,7 +451,7 @@ $$logloss = -\frac{1}{N}\sum_{i=1}^N{\sum_{j=1}^M}y_{ij}log(p_{ij})$$
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then, we load the dataset into a <a href="https://docs.fast.ai/basic_data.html#DataBunch">DataBunch</a> object.</p>
+<p>Then, we load the dataset into a <a href="https://fastai1.fast.ai/basic_data.html#DataBunch">DataBunch</a> object.</p>
 
 </div>
 </div>
@@ -852,7 +829,7 @@ $$logloss = -\frac{1}{N}\sum_{i=1}^N{\sum_{j=1}^M}y_{ij}log(p_{ij})$$
         </p>
       </div>
       <div class="footer-col">
-        <p></p>
+        <p>A blog about various topics in the field of Artificial Intelligence and IT Security.</p>
       </div>
     </div>
 

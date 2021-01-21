@@ -134,12 +134,7 @@ window.onload = wrap_img;
     </a>
 </div>
 
-          <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/bam098/blog/master?filepath=_notebooks%2F2020-05-08-creating-mushroom-dataset.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
+          
           <div class="px-2">
     <a href="https://colab.research.google.com/github/bam098/blog/blob/master/_notebooks/2020-05-08-creating-mushroom-dataset.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
@@ -160,7 +155,17 @@ window.onload = wrap_img;
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Recently, a friend of mine told me that she would like to collect mushrooms in the wild. She grew up in a bigger city in Colombia and apparently collecting mushrooms was not a common thing to do there. Thus, when she visits me next time, she wants to try it out. However, she is also a bit afraid of picking up toxic mushrooms by accident. That's why I thought it might be quite handy to have a mushroom classifier. The classifier should take a photo of a mushroom and then tell me what type of mushroom the photo shows. So, it is basically an image classification problem. I already showed how to classify images of distracted drivers using the <a href="https://docs.fast.ai/">fastai</a> library in another <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>. To classify photos of mushrooms we could try the same approach. However, for the distracted driver classification I was able to use a <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection">dataset from Kaggle</a> to train the classification model. For mushrooms on the other hand I have not been able to find any ready-to-use image dataset. Hence, I need to create such a dataset by myself. How can this be done?</p>
+<p>Recently, a friend of mine told me that she would like to collect mushrooms in the wild. She grew up in a bigger city in Colombia and apparently collecting mushrooms was not a common thing to do there. Thus, when she visits me next time, she wants to try it out. However, she is also a bit afraid of picking up toxic mushrooms by accident. That's why I thought it might be quite handy to have a mushroom classifier. The classifier should take a photo of a mushroom and then tell me what type of mushroom the photo shows. So, it is basically an image classification problem. I already showed how to classify images of distracted drivers using the <a href="https://fastai1.fast.ai/">fastai</a> library in another <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>. To classify photos of mushrooms we could try the same approach. However, for the distracted driver classification I was able to use a <a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection">dataset from Kaggle</a> to train the classification model. For mushrooms on the other hand I have not been able to find any ready-to-use image dataset. Hence, I need to create such a dataset by myself. How can this be done?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div class="flash flash-warn">
+    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <strong>Important: </strong>The code shown in the blog post uses the old fastai v1 version. For the current fastai version check out the <a href="https://docs.fast.ai/">fastai docs</a>.
+</div></p>
 
 </div>
 </div>
@@ -218,7 +223,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, let's load some magics (you can read more about them in my earlier <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>).</p>
+<p>Next, let's load some magics (you can read more about them in my earlier <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>).</p>
 
 </div>
 </div>
@@ -242,79 +247,6 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's also make sure we use the newest versions of <a href="https://pytorch.org/">PyTorch</a> and the <a href="https://docs.fast.ai/">fastai library</a>. In my experience Google Colab usually always has the newest versions of these libraries automatically installed. However, to be sure we could uninstall the currently installed versions and then use the <a href="https://course.fast.ai/update_colab.html#step-2-updating-packages-and-course-repo">setup script</a> for Colab offered by fastai to install the newest ones.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> pip uninstall torch torchvision fastai -y
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> curl -s https://course.fast.ai/setup/colab <span class="p">|</span> bash
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>However, currently there is one more problem. The latest version of PyTorch (version <code>1.5</code>) doesn't work together with the current version of fastai (version <code>1.0.61</code>). The problem can be solved by <a href="https://forums.fast.ai/t/imagedatabunch-error/69815/14">downgrading PyTorch</a> to version <code>1.4.0</code>.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> pip uninstall torch torchvision -y
-<span class="o">!</span> pip install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.4.0 <span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.5.0
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I'm sure this problem will be fixed eventually. Thus, the downgrading probably won't be necessary in the future anymore.</p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, let's display the version of PyTorch, fastai and numpy.</p>
@@ -696,7 +628,7 @@ numpy version:       1.18.3
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><div class="flash flash-warn">
-    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
     <strong>Important: </strong>The following steps for receiving the image URLs need to be done for each of the eight mushroom classes.
 </div></p>
 
@@ -761,7 +693,7 @@ numpy version:       1.18.3
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><div class="flash flash-warn">
-    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
     <strong>Important: </strong>After uploading the CSV files (containing the image URLs) to Google Drive we need to switch from our local machine to Google Colab, since we want to train our classification model there.
 </div></p>
 
@@ -783,7 +715,7 @@ numpy version:       1.18.3
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>How can we do this in code? Fastai actually already provides a function called <a href="https://docs.fast.ai/vision.data.html#download_images">download_images</a>, that takes a CSV file with image URLs and downloads the images by these URLs to a specified location. However, only images that can be opened are downloaded. To be able to execute <code>download_images</code> for each of the eight CSV files I wrote an own little wrapper function. This wrapper function takes a dictionary, which stores the class names as keys and the paths to the CSV files as values, and then loops over this dictionary to call <code>download_images</code> for each entry of the dictionary (i.e. each class).</p>
+<p>How can we do this in code? Fastai actually already provides a function called <a href="https://fastai1.fast.ai/vision.data.html#download_images">download_images</a>, that takes a CSV file with image URLs and downloads the images by these URLs to a specified location. However, only images that can be opened are downloaded. To be able to execute <code>download_images</code> for each of the eight CSV files I wrote an own little wrapper function. This wrapper function takes a dictionary, which stores the class names as keys and the paths to the CSV files as values, and then loops over this dictionary to call <code>download_images</code> for each entry of the dictionary (i.e. each class).</p>
 
 </div>
 </div>
@@ -1059,7 +991,7 @@ downloading images of class morchella_esculenta
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This looks good. Now, let's go through all directories and check if some of the images are corrupted (e.g. since they couldn't be downloaded properly) or if they are okay and can be opened. If they are corrupted, we will remove them. Again, we don't need to code this all by ourselves. Fastai offers a function <a href="https://docs.fast.ai/vision.data.html#verify_images">verify_images</a> that checks all images of the directory and removes corrupted images. I just wrote a simply wrapper function again, that runs <code>verify_images</code> for all of our eight directories.</p>
+<p>This looks good. Now, let's go through all directories and check if some of the images are corrupted (e.g. since they couldn't be downloaded properly) or if they are okay and can be opened. If they are corrupted, we will remove them. Again, we don't need to code this all by ourselves. Fastai offers a function <a href="https://fastai1.fast.ai/vision.data.html#verify_images">verify_images</a> that checks all images of the directory and removes corrupted images. I just wrote a simply wrapper function again, that runs <code>verify_images</code> for all of our eight directories.</p>
 
 </div>
 </div>
@@ -1148,7 +1080,7 @@ removing unaccessible images of class morchella_esculenta
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>According to the output there were no corrupted images found. If there have been any, we would have seen the file paths of them in the output. Next, let's load our dataset into an <a href="https://docs.fast.ai/vision.data.html#ImageDataBunch">ImageDataBunch</a> object. Since our dataset is structured among separate directories for the eight classes, we can use the <a href="https://docs.fast.ai/vision.data.html#ImageDataBunch.from_folder">from_folder</a> method here. We split the dataset into 80% training and 20% validation set. Furthermore, we apply standard data augmentation and a normalization using ImageNet statistics to the data. This is similar to what I did when I trained a model to classify images of distracted drivers. For more information regarding how to load the data as an <code>ImageDataBunch</code> see my earlier <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>.</p>
+<p>According to the output there were no corrupted images found. If there have been any, we would have seen the file paths of them in the output. Next, let's load our dataset into an <a href="https://fastai1.fast.ai/vision.data.html#ImageDataBunch">ImageDataBunch</a> object. Since our dataset is structured among separate directories for the eight classes, we can use the <a href="https://fastai1.fast.ai/vision.data.html#ImageDataBunch.from_folder">from_folder</a> method here. We split the dataset into 80% training and 20% validation set. Furthermore, we apply standard data augmentation and a normalization using ImageNet statistics to the data. This is similar to what I did when I trained a model to classify images of distracted drivers. For more information regarding how to load the data as an <code>ImageDataBunch</code> see my earlier <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>.</p>
 
 </div>
 </div>
@@ -1317,14 +1249,14 @@ valid_ds size: 818
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To train a mushroom classification model using our created dataset I am going to follow the same approach that I also used to train the model to classify images of distracted drivers. Thus, I will only briefly describe the training process here. Again, for more details check out my earlier <a href="https://bam098.github.io/ai-blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>.</p>
+<p>To train a mushroom classification model using our created dataset I am going to follow the same approach that I also used to train the model to classify images of distracted drivers. Thus, I will only briefly describe the training process here. Again, for more details check out my earlier <a href="https://bam098.github.io/blog/kaggle/image%20classification/fastai/cnn/2020/03/23/distracted-driver-detection.html">blog post</a>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First, let's create a <a href="https://docs.fast.ai/vision.learner.html#cnn_learner">cnn_learner</a> object with a ResNet50 network model architecture.</p>
+<p>First, let's create a <a href="https://fastai1.fast.ai/vision.learner.html#cnn_learner">cnn_learner</a> object with a ResNet50 network model architecture.</p>
 
 </div>
 </div>
@@ -1348,7 +1280,7 @@ valid_ds size: 818
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We are going to use the <a href="https://docs.fast.ai/callbacks.one_cycle.html#The-1cycle-policy">1-cycle-policy</a> to train our model. Therefor, we need a maximum value for the learning rate hyper-parameter. To find a good value for the learning rate we can use the learning rate finder <a href="https://docs.fast.ai/basic_train.html#lr_find">lr_find</a>.</p>
+<p>We are going to use the <a href="https://fastai1.fast.ai/callbacks.one_cycle.html#The-1cycle-policy">1-cycle-policy</a> to train our model. Therefor, we need a maximum value for the learning rate hyper-parameter. To find a good value for the learning rate we can use the learning rate finder <a href="https://fastai1.fast.ai/basic_train.html#lr_find">lr_find</a>.</p>
 
 </div>
 </div>
@@ -1507,7 +1439,7 @@ valid_ds size: 818
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then, let's <a href="https://docs.fast.ai/basic_train.html#Learner.unfreeze">unfreeze</a> all the layers and train the whole network for 12 more epochs. For the deeper layers I keep using the learning rate value that we found by using the learning rate finder. For the earlier layers we should use a value ten times smaller than that for the learning rate.</p>
+<p>Then, let's <a href="https://fastai1.fast.ai/basic_train.html#Learner.unfreeze">unfreeze</a> all the layers and train the whole network for 12 more epochs. For the deeper layers I keep using the learning rate value that we found by using the learning rate finder. For the earlier layers we should use a value ten times smaller than that for the learning rate.</p>
 
 </div>
 </div>
@@ -1667,7 +1599,7 @@ valid_ds size: 818
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, let's see which mistakes our model makes. We can use the <a href="https://docs.fast.ai/vision.learner.html#ClassificationInterpretation">ClassificationInterpretation</a> class for this. It will give us the samples of the validation set with the highest losses.</p>
+<p>Next, let's see which mistakes our model makes. We can use the <a href="https://fastai1.fast.ai/vision.learner.html#ClassificationInterpretation">ClassificationInterpretation</a> class for this. It will give us the samples of the validation set with the highest losses.</p>
 
 </div>
 </div>
@@ -1869,7 +1801,7 @@ valid_ds size: 818
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To clean the dataset we can use a <a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html">widget</a> provided by fastai that is called <a href="https://docs.fast.ai/widgets.image_cleaner.html#ImageCleaner">ImageCleaner</a>. This widget will make the cleaning process a lot easier.</p>
+<p>To clean the dataset we can use a <a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Basics.html">widget</a> provided by fastai that is called <a href="https://fastai1.fast.ai/widgets.image_cleaner.html#ImageCleaner">ImageCleaner</a>. This widget will make the cleaning process a lot easier.</p>
 
 </div>
 </div>
@@ -1941,7 +1873,7 @@ valid_ds size: 818
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>So, why is our model useful for cleaning the data? Well, we can use our model to find the images for which our model gives high losses. A high loss means either a) our model is not very good or b) something is wrong with the image (e.g. weird image, wrong image label). Thus, let's check the images with a high loss. To obtain these images we can use the <a href="https://docs.fast.ai/widgets.image_cleaner.html#DatasetFormatter.from_toplosses">from_toplosses</a> method of the <a href="https://docs.fast.ai/widgets.image_cleaner.html#DatasetFormatter">DatasetFormatter</a> class.</p>
+<p>So, why is our model useful for cleaning the data? Well, we can use our model to find the images for which our model gives high losses. A high loss means either a) our model is not very good or b) something is wrong with the image (e.g. weird image, wrong image label). Thus, let's check the images with a high loss. To obtain these images we can use the <a href="https://fastai1.fast.ai/widgets.image_cleaner.html#DatasetFormatter.from_toplosses">from_toplosses</a> method of the <a href="https://fastai1.fast.ai/widgets.image_cleaner.html#DatasetFormatter">DatasetFormatter</a> class.</p>
 
 </div>
 </div>
@@ -2028,7 +1960,7 @@ valid_ds size: 818
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><div class="flash flash-warn">
-    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
     <strong>Important: </strong>To avoid that our session on Google Colab runs out while using the widget we need to run some other cell periodically during the cleaning process (e.g. every five minutes). Thanks to Elie GAKUBA who <a href="https://forums.fast.ai/t/lesson-1-in-class-discussion/27332/1839">pointed that out</a> as well.
 </div></p>
 
@@ -2037,7 +1969,7 @@ valid_ds size: 818
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Besides images that don't show mushrooms we also don't want to have duplicate images in our dataset. The <code>DatasetFormatter</code> also has a method <a href="https://docs.fast.ai/widgets.image_cleaner.html#DatasetFormatter.from_similars">from_similar</a> to give us similar images of our dataset indicating that these images could be duplicates. The similarity scores are computed from the layer activations of our network.</p>
+<p>Besides images that don't show mushrooms we also don't want to have duplicate images in our dataset. The <code>DatasetFormatter</code> also has a method <a href="https://fastai1.fast.ai/widgets.image_cleaner.html#DatasetFormatter.from_similars">from_similar</a> to give us similar images of our dataset indicating that these images could be duplicates. The similarity scores are computed from the layer activations of our network.</p>
 
 </div>
 </div>
@@ -2124,7 +2056,7 @@ Computing similarities...
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><div class="flash flash-warn">
-    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
+    <svg class="octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap octicon octicon-zap" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.561 1.5a.016.016 0 00-.01.004L3.286 8.571A.25.25 0 003.462 9H6.75a.75.75 0 01.694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0012.538 7H9.25a.75.75 0 01-.683-1.06l2.008-4.418.003-.006a.02.02 0 00-.004-.009.02.02 0 00-.006-.006L10.56 1.5zM9.504.43a1.516 1.516 0 012.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 01-.871.354h-.302a1.25 1.25 0 01-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429z"></path></svg>
     <strong>Important: </strong>Same as  before, to avoid that our session on Google Colab runs out while using the widget we need to run another cell periodically during the cleaning process.
 </div></p>
 
@@ -2140,7 +2072,7 @@ Computing similarities...
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>By the way, the cleaning process can actually take quite some time. If you decide to take a break in between, you can simply use the current <code>cleaned.csv</code> file to create a new <code>ImageDataBunch</code> object using the <a href="https://docs.fast.ai/vision.data.html#ImageList.from_csv">from_csv</a> method when you want to continue cleaning (instead of the <code>from_folder</code> method that we used before).</p>
+<p>By the way, the cleaning process can actually take quite some time. If you decide to take a break in between, you can simply use the current <code>cleaned.csv</code> file to create a new <code>ImageDataBunch</code> object using the <a href="https://fastai1.fast.ai/vision.data.html#ImageList.from_csv">from_csv</a> method when you want to continue cleaning (instead of the <code>from_folder</code> method that we used before).</p>
 
 </div>
 </div>
@@ -2877,7 +2809,7 @@ valid_ds size: 430
         </p>
       </div>
       <div class="footer-col">
-        <p></p>
+        <p>A blog about various topics in the field of Artificial Intelligence and IT Security.</p>
       </div>
     </div>
 
