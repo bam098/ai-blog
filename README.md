@@ -28,3 +28,7 @@ A blog about various topics in the field of Artificial Intelligence and IT Secur
 1. [Creating Markdown Files of All Posts](_fastpages_docs/DEVELOPMENT.md) Using ``make convert``
 
 2. Check All Markdown Files for Broken Links Using [linkstatus](https://pypi.org/project/linkstatus/) via ``linkstatus _posts`` 
+
+## How to Preview the Blog Locally?
+
+[Preview Blog Locally](https://github.com/bam098/blog/blob/master/_fastpages_docs/DEVELOPMENT.md)
