@@ -19,6 +19,10 @@ A blog about various topics in the field of Artificial Intelligence and IT Secur
 
 - [(Optional) Preview Your Blog Locally](_fastpages_docs/DEVELOPMENT.md)
 
+## How to Upgrade Fastpages?
+
+[Upgrading Fastpages](https://github.com/fastai/fastpages/blob/master/_fastpages_docs/UPGRADE.md)
+
 ## How to Check for Broken Links?
 
 1. [Creating Markdown Files of All Posts](_fastpages_docs/DEVELOPMENT.md) Using ``make convert``
