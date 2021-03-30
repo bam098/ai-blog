@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Project Euler Problem 2 - Even Fibonacci numbers | bam098</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Project Euler Problem 2 - Even Fibonacci numbers" />
+<meta name="author" content="bam098" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A tutorial about how to solve problem 2 from Project Euler." />
+<meta property="og:description" content="A tutorial about how to solve problem 2 from Project Euler." />
+<link rel="canonical" href="https://bam098.github.io/blog/project%20euler/math/2021/03/25/project-euler-2.html" />
+<meta property="og:url" content="https://bam098.github.io/blog/project%20euler/math/2021/03/25/project-euler-2.html" />
+<meta property="og:site_name" content="bam098" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-25T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://bam098.github.io/blog/project%20euler/math/2021/03/25/project-euler-2.html","@type":"BlogPosting","headline":"Project Euler Problem 2 - Even Fibonacci numbers","dateModified":"2021-03-25T00:00:00-05:00","datePublished":"2021-03-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://bam098.github.io/blog/project%20euler/math/2021/03/25/project-euler-2.html"},"author":{"@type":"Person","name":"bam098"},"description":"A tutorial about how to solve problem 2 from Project Euler.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://bam098.github.io/blog/feed.xml" title="bam098" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">bam098</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Project Euler | Problem 2 - Even Fibonacci numbers</h1><p class="page-description">A tutorial about how to solve problem 2 from Project Euler.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-25T00:00:00-05:00" itemprop="datePublished">
+        Mar 25, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">bam098</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      23 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#Project Euler">Project Euler</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Math">Math</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-03-25-project-euler-2.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://projecteuler.net/problem=2">Link to Project-Euler</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with $1$ and $2$, the first $10$ terms will be:<br /><br />$1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...$ <br /><br />By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There is a similar exercise on <a href="https://www.hackerrank.com/contests/projecteuler/challenges/euler002/problem">HackerRank</a>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with $1$ and $2$, the first $10$ terms will be:<br /><br /> $1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...$ <br /><br />By considering the terms in the Fibonacci sequence whose values do not exceed $N$, find the sum of the even-valued terms. <br /><br /><strong>Input Format</strong> <br />First line contains $T$ that denotes the number of test cases. This is followed by $T$ lines, each containing an integer, $N$. <br /><br /><strong>Constraints</strong> <br />$1 \leq T \leq 10^5$ and $10 \leq N \leq 4 \cdot 10^6$</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The HackerRank exercise is a generic version of the Project Euler exercise, since our maximum value is variable here (through the variable $N$). In the Project Euler version, in contrast, the maximum value is fixed at $4000000$. In the following I will consider a maximum number of $4000000$ (Project Euler exercise) and $4 \cdot 10^6$ (upper bound of the HankerRank exercise). To avoid any confusion, I will call the maximum number $max \_ num$ in the following and not $N$ as HackerRank does. I will use $n$ for the $n$th fibonacci number in the fibonacci sequence and calling the maximum number $N$ at the same time might be confusing.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <a href="https://en.wikipedia.org/wiki/Fibonacci_number">fibonacci sequence</a> is defined as follows (for $n &gt; 1$):</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As a result, the first fibonacci numbers are (as stated in the exercise):</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$0, \quad 1, \quad 1, \quad 2, \quad 3, \quad 5, \quad 8, \quad 13, \quad 21, \quad 34, \quad 55, \quad 89, \quad 144, \quad ...$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We should only consider the even fibonacci numbers that are smaller than $max \_ num$:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$2, \quad 8, \quad 34, \quad 144, \quad ...$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we should take the sum of the even numbers smaller than $max \_ num$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Brute-Force-Approach">Brute Force Approach<a class="anchor-link" href="#Brute-Force-Approach"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>My first approach was to simply use brute force. We create all the fibonacci numbers smaller than $max \_ num$ using the formula $F_n = F_{n-1}+F_{n-2}$, look for the even ones among them and add them together. This could be implemented using the following steps:</p>
+<ol>
+<li>We create a $sum$ variable with an intial value of $0$ and set $n = 3$. We set $n$ to $3$, since $F_3$ is the first even fibonacci number ($F_3 = 2$).</li>
+<li>We create the $n$th fibonacci number using the formula $F_n = F_{n-1} + F_{n-2}$.</li>
+<li>If $F_n \leq max \_ num$, we will go to step 4. Otherwise we stop and return $sum$.</li>
+<li>We check if the number is even using the modulo operator (I explained how to do this in my <a href="https://bam098.github.io/blog/project%20euler/math/2021/02/12/project-euler-1.html">previous post about Project Euler problem 1</a>).</li>
+<li>If the number is even, we add it to $sum$.</li>
+<li>We increase $n$ by $1$ and jump back to step 2.</li>
+</ol>
+<p>In Python we can implement the approach as follows:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fibonacci_sum_bf</span><span class="p">(</span><span class="n">max_num</span><span class="p">):</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="n">fn_1</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">fn_2</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">fn_1</span> <span class="o">+</span> <span class="n">fn_2</span>
+
+    <span class="k">while</span> <span class="n">fn</span> <span class="o">&lt;=</span> <span class="n">max_num</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">fn</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">sum</span> <span class="o">+=</span> <span class="n">fn</span>
+    
+        <span class="n">fn_1</span><span class="p">,</span> <span class="n">fn_2</span> <span class="o">=</span> <span class="n">fn</span><span class="p">,</span> <span class="n">fn_1</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">fn_1</span> <span class="o">+</span> <span class="n">fn_2</span>
+    
+    <span class="k">return</span> <span class="nb">sum</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's calculate the sum for $max \_ num = 4000000$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fibonacci_sum_bf</span><span class="p">(</span><span class="mi">4000000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4613732</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sum is <code>4613732</code>. Now, let's also check how long the brute force version takes. I use the <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit">%timeit</a> magic for this.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n10000 -r100 fibonacci_sum_bf(4000000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2.83 µs ± 108 ns per loop (mean ± std. dev. of 100 runs, 10000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The parameter <code>-n10000</code> means it runs the function <code>10000</code> times in a loop. The parameter <code>-r100</code> means it repeats the loop of <code>10000</code> runs <code>100</code> times. Finally, it returns the mean and standard deviation of how long the function <code>fibonacci_sum_bf</code> needed to run. As we can see, the function took <code>2.83</code> microseconds on average. Let's also calculate the sum for $max \_ num = 4 \cdot 10^{16}$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fibonacci_sum_bf</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>49597426547377748</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sum is <code>49597426547377748</code>. Let's also check how long it takes.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n10000 -r100 fibonacci_sum_bf(4 * 10**16)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>8.02 µs ± 273 ns per loop (mean ± std. dev. of 100 runs, 10000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The function took <code>8.02</code> microseconds.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Improved-Approach">Improved Approach<a class="anchor-link" href="#Improved-Approach"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I was wondering if there is a better approach and I found a <a href="https://medium.com/@TheZaki/project-euler-2-even-fibonacci-numbers-2219e9438970">blog post</a> from <a href="https://twitter.com/OussaZaki">Oussama Zaki</a> describing a nice idea. Our brute force approach creates all fibonacci numbers smaller than $max \_ num$ and checks after each created number if it is even. However, it would be much better, if we could directly create only the even fibonacci numbers and add them together. This way we don't create any odd numbers that we don't need anyway, and we also don't need to check if a number is even. But how can we create only the even fibonacci numbers? Let's take a look at the fibonacci sequence again and focus on where the even numbers are:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$0, \quad 1, \quad 1, \quad $ $\bf2$ $, \quad 3, \quad 5, \quad $ $\bf8$ $, \quad 13, \quad 21, \quad $ $\bf34$ $, \quad 55, \quad 89, \quad $ $\bf144$ $, \quad ...$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see a pattern here:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$odd, \quad odd, \quad $ $\bf even$ $, \quad odd, \quad odd, \quad $ $\bf even$ $, \quad odd, \quad odd, \quad $ $\bf even$ $, \quad ...$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This follows from the <a href="https://en.wikipedia.org/wiki/Parity_%28mathematics%29#Addition_and_subtraction">addition laws on even and odd numbers</a>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$odd + odd = even, \quad even + odd = odd$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, let's assume $F_n$ is even. Then, $F_{n-1}$ and $F_{n-2}$ must be odd, $F_{n-3}$ must be even, $F_{n-4}$ and $F_{n-5}$ must be odd, and $F_{n-6}$ must be even. Let's try to express $F_n$ only using the even numbers $F_{n-3}$ and $F_{n-6}$. Originally, $F_n$ is defined as</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$F_n = F_{n-1} + F_{n-2}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We know that $F_{n-1} = F_{n-2} + F_{n-3}$ and $F_{n-2} = F_{n-3} + F_{n-4}$. So, let's rewrite the equation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$F_n = F_{n-2} + F_{n-3} + F_{n-3} + F_{n-4} = 2 \cdot F_{n-3} + F_{n-2} + F_{n-4}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We know that $F_{n-2} = F_{n-3} + F_{n-4}$ and $F_{n-4} = F_{n-5} + F_{n-6}$. So, let's rewrite the equation again.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$F_n = 2 \cdot F_{n-3} + F_{n-3} + F_{n-4} + F_{n-5} + F_{n-6} = 3 \cdot F_{n-3} + F_{n-4} + F_{n-5} + F_{n-6}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We know that $F_{n-4} + F_{n-5} = F_{n-3}$. So, let's rewrite the equation one more time.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$F_n = 3 \cdot F_{n-3} + F_{n-3} + F_{n-6} = 4 \cdot F_{n-3} + F_{n-6}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, we have a formula to create even fibonacci numbers. This results in a sequence that <a href="https://twitter.com/OussaZaki">Oussama Zaki</a> calls <code>EvenFibonacci</code> sequence ${EF}_n$. It is defined as follows (for $n &gt; 1$):</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$${EF}_0 = 2, \quad {EF}_1 = 8, \quad {EF}_n = 4 \cdot {EF}_{n-1} + {EF}_{n-2}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The fibonacci numbers $2$ and $8$ are the first two even fibonacci numbers. All other even fibonacci numbers are calculated using our derived formula from above. We can implemented the sum of the even fibonacci numbers using the following steps:</p>
+<ol>
+<li>We create a $sum$ variable with an intial value of $10$ (the sum of the first 2 even fibonacci numbers $2$ and $8$) and set $n = 3$.</li>
+<li>We create the $n$th even fibonacci number using the formula ${EF}_n = 4 \cdot {EF}_{n-1} + {EF}_{n-2}$.</li>
+<li>If ${EF}_n \leq max \_ num$, we will go to step 4. Otherwise we stop and return $sum$.</li>
+<li>We add ${EF}_n$ to $sum$.</li>
+<li>We increase $n$ by $1$ and jump back to step 2.</li>
+</ol>
+<p>In Python we can implement the approach as follows:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fibonacci_sum_impr</span><span class="p">(</span><span class="n">max_num</span><span class="p">):</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="mi">10</span>
+    
+    <span class="n">fn_1</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">fn_2</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">fn_1</span> <span class="o">+</span> <span class="n">fn_2</span>
+
+    <span class="k">while</span> <span class="n">fn</span> <span class="o">&lt;=</span> <span class="n">max_num</span><span class="p">:</span>
+        <span class="nb">sum</span> <span class="o">+=</span> <span class="n">fn</span>
+            
+        <span class="n">fn_1</span><span class="p">,</span> <span class="n">fn_2</span> <span class="o">=</span> <span class="n">fn</span><span class="p">,</span> <span class="n">fn_1</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">fn_1</span> <span class="o">+</span> <span class="n">fn_2</span>
+    
+    <span class="k">return</span> <span class="nb">sum</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's calculate the sum for $max \_ num = 4000000$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fibonacci_sum_impr</span><span class="p">(</span><span class="mi">4000000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4613732</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sum is <code>4613732</code>. It is the same solution that we also received using our brute force approach. Now, let's check how long the improved version <code>fibonacci_sum_impr</code> takes. Could we speed up?</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n10000 -r100 fibonacci_sum_impr(4000000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>973 ns ± 48.5 ns per loop (mean ± std. dev. of 100 runs, 10000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The function took <code>973</code> nanoseconds on average. This is faster than our brute force approach, which took <code>2.83</code> microseconds. So, we could speed up a little. Now, let's also calculate the sum for $max \_ num = 4 \cdot 10^{16}$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fibonacci_sum_impr</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>49597426547377748</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sum is <code>49597426547377748</code>. Not surprisingly, this is the same result that we already received using our brute force approach. Let's also check how long the function takes for $max \_ num = 4 \cdot 10^{16}$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n10000 -r100 fibonacci_sum_impr(4 * 10**16)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2.89 µs ± 108 ns per loop (mean ± std. dev. of 100 runs, 10000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The function took <code>2.89</code> microseconds. This is much better than our brute force approach, which took <code>8.02</code> microseconds.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Pure-Mathematical-Approach">Pure Mathematical Approach<a class="anchor-link" href="#Pure-Mathematical-Approach"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It would be nice to improve even further. Especially, a pure mathematical approach, that runs in constant time (i.e., the run time is independent of $max \_ num$), would be nice. <a href="https://twitter.com/OussaZaki">Oussama Zaki</a> describes such an approach in his <a href="https://medium.com/@TheZaki/project-euler-2-even-fibonacci-numbers-2219e9438970">blog post</a> as well. I will explain it in the following.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Fibonacci numbers can also be calculated using the following closed format known as <a href="https://en.wikipedia.org/wiki/Fibonacci_number#Relation_to_the_golden_ratio">Binet's formula</a>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\varphi$ is called the <a href="https://en.wikipedia.org/wiki/Golden_ratio">golden ratio</a>. $\psi$ is called the <a href="https://en.wikipedia.org/wiki/Golden_ratio#Golden_ratio_conjugate">silver ratio or golden ratio conjugate</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$\varphi = \frac{1 + \sqrt{5}}{2}, \quad \psi = \frac{1 - \sqrt{5}}{2}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We want to add up all even fibonacci numbers. As we have seen before, that is every third number:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$F_3 \quad + \quad F_6 \quad + \quad F_9 \quad + \quad ... $</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, we can write the sum $S$ as follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$S = \sum^k_{i=1} F_{3i}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, let's use the Binet's formula:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$S \quad = \quad \sum^k_{i=1} F_{3i} \quad = \quad \sum^k_{i=1} \frac{\varphi^{3i} - \psi^{3i}}{\sqrt{5}}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's change the expression as follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$S \quad = \quad \sum^k_{i=1} \frac{\varphi^{3i} - \psi^{3i}}{\sqrt{5}} \quad = \quad \frac{1}{\sqrt{5}}  \cdot \bigg(\sum^k_{i=1} (\varphi^3)^i - \sum^k_{i=1} (\psi^3)^i\bigg)$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, we can apply the formula for the <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">geometric series</a> to adjust our expression further. The formula for the geometric series is the following <a href="https://en.wikipedia.org/wiki/Geometric_progression#Related_formulas">one</a>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$\sum^k_{i=1} r^i \quad = \quad \frac{r^1 - r^{k+1}}{1 - r}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, we can replace $r$ with $\varphi^3$:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$\sum^k_{i=1} (\varphi^3)^i \quad = \quad \frac{(\varphi^3)^1 - (\varphi^3)^{k+1}}{1 - \varphi^3} \quad = \quad \varphi^3 \cdot \frac{1 - (\varphi^3)^k}{1 - \varphi^3}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's do the same for $\psi^3$:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$\sum^k_{i=1} (\psi^3)^i \quad = \quad \frac{(\psi^3)^1 - (\psi^3)^{k+1}}{1 - \psi^3} \quad = \quad \psi^3 \cdot \frac{1 - (\psi^3)^k}{1 - \psi^3}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we can adjust our expression above as follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$S \quad = \quad \frac{1}{\sqrt{5}}  \cdot \bigg(\sum^k_{i=1} (\varphi^3)^i - \sum^k_{i=1} (\psi^3)^i\bigg) \quad = \quad \frac{1}{\sqrt{5}}  \cdot \bigg( \varphi^3 \cdot \frac{1 - (\varphi^3)^k}{1 - \varphi^3} - \psi^3 \cdot \frac{1 - (\psi^3)^k}{1 - \psi^3} \bigg)$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We are almost done. There is only one piece missing. What is $k$? Well, we know that $3 \cdot k \leq n_{max}$, where $n_{max}$ is the $n$th fibonacci number that is smaller than $max \_ num$. Why is $3 \cdot k$ smaller than $n_{max}$ and not equal? Well, $n_{max}$ is not necessarily an even fibonacci number. How can we get $k$ then? We can get $k$ as follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$3 \cdot k \leq n_{max} \quad \Rightarrow \quad k = \biggl\lfloor \frac{n_{max}}{3} \biggr\rfloor$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The brackets $\lfloor ... \rfloor$ mean that we take the floor. This makes sure that $3 \cdot k$ is the next smaller even fibonacci number to $n_{max}$ (I have used the same approach in my <a href="https://bam098.github.io/blog/project%20euler/math/2021/02/12/project-euler-1.html">blog post about solving Project Euler problem 1</a>). But what is $n_{max}$? Well, we can calculate $n_{max}$ via the inverse of the closed form fibonacci function. I haven't really understood how <a href="https://twitter.com/OussaZaki">Oussama Zaki</a> did this, but then I found a <a href="https://stackoverflow.com/a/7843192">post on Stackoverflow from PengOne</a> that describes it quite well. First, we need to look at the fibonacci function in closed form again for $n_{max}$:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$F_{n_{max}} = \frac{\varphi^{n_{max}} - \psi^{n_{max}}}{\sqrt{5}}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As already mentioned above, $\psi$ is defined as follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$\psi = \frac{1 - \sqrt{5}}{2}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thus, $\psi^{n_{max}}$ is:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$\psi^{n_{max}} = \bigg(\frac{1 - \sqrt{5}}{2}\bigg)^{n_{max}} = \frac{(1 - \sqrt{5})^{n_{max}}}{2^{n_{max}}}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The absolute value of $1 - \sqrt{5}$ is smaller than $2$. If we take the exponential of both expressions (i.e., $(1 - \sqrt{5})^{n_{max}}$ and $2^{n_{max}}$), $2^{n_{max}}$ will always be higher than $(1 - \sqrt{5})^{n_{max}}$. For large ${n_{max}}$, the expression $2^{n_{max}}$ will be even much higher and in our case here $n_{max}$ is indeed large. As a result, $\psi^{n_{max}}$ will be close to $0$ for large ${n_{max}}$, since the denominator $2^{n_{max}}$ is much higher than the numerator $(1 - \sqrt{5})^{n_{max}}$. Hence, we can ignore $\psi^{n_{max}}$ in $F_{n_{max}}$ for large $n$ resulting in:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$F_{n_{max}} = \frac{\varphi^{n_{max}}}{\sqrt{5}} \quad \Rightarrow \quad \varphi^{n_{max}} = \sqrt{5} \cdot F_{n_{max}}$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, we can transform the formula to the inverse function:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$${n_{max}} = \log_{\varphi} \big( \sqrt{5} \cdot F_{n_{max}} \big)$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But there is one more problem! We actually don't have $F_{n_{max}}$! However, according to the <a href="https://stackoverflow.com/a/7843192">post on Stackoverflow</a>, also any number close to a large fibonacci number $F_{n_{max}}$ gives the correct result. Now, we have all pieces together to calculate the sum $S$:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$S \quad = \quad \frac{1}{\sqrt{5}}  \cdot \bigg( \varphi^3 \cdot \frac{1 - (\varphi^3)^k}{1 - \varphi^3} - \psi^3 \cdot \frac{1 - (\psi^3)^k}{1 - \psi^3} \bigg)$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+$$k = \biggl\lfloor \frac{n_{max}}{3} \biggr\rfloor, \quad {n_{max}} = \log_{\varphi} \big( \sqrt{5} \cdot F_{n_{max}} \big)$$
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's see how this looks in Python code:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">log</span>
+
+
+<span class="k">def</span> <span class="nf">fibonacci_sum_math</span><span class="p">(</span><span class="n">max_num</span><span class="p">):</span>
+    <span class="c1"># phi and psi</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">psi</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+    
+    <span class="c1"># get k through the inverse fibonacci function</span>
+    <span class="k">def</span> <span class="nf">inverse_fib</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">fn</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">phi</span><span class="p">)))</span>
+    
+    <span class="n">k</span> <span class="o">=</span> <span class="n">inverse_fib</span><span class="p">(</span><span class="n">max_num</span><span class="p">)</span> <span class="o">//</span> <span class="mi">3</span>
+    
+    <span class="c1"># compute sum</span>
+    <span class="n">phi3</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="n">psi3</span> <span class="o">=</span> <span class="n">psi</span> <span class="o">**</span> <span class="mi">3</span>    
+    
+    <span class="nb">sum</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="n">phi3</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi3</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi3</span><span class="p">))</span> <span class="o">-</span>
+        <span class="n">psi3</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">psi3</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">psi3</span><span class="p">))</span>
+    <span class="p">)))</span>
+    
+    <span class="k">return</span> <span class="nb">sum</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see, I round the sum and the result of the inverse fibonacci function. This is necessary, since we probably don't get exact integer values due to <a href="https://stackoverflow.com/a/7843192">floating point rounding errors</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's calculate the sum for $max \_ num = 4000000$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fibonacci_sum_math</span><span class="p">(</span><span class="mi">4000000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4613732</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sum is <code>4613732</code>. This is the same result that we also received using our brute force and our improved approach. Now, let's check how long the pure mathematical version takes to see if we could speed up.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n10000 -r100 fibonacci_sum_math(4000000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1.54 µs ± 89.5 ns per loop (mean ± std. dev. of 100 runs, 10000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It took <code>1.54</code> microseconds. Oddly, this is faster than the brute force approach (<code>2.83</code> microseconds) but a little slower than the improved approach (<code>973</code> nanoseconds). My guess is that operations like <code>log</code> or <code>sqrt</code> can take up some time, and for $max \_ num = 4000000$ we actually don't need to add up so many numbers. So, let's calculate the solution for $max \_ num = 4 \cdot 10^{16}$. For $max \_ num = 4 \cdot 10^{16}$ we need to add up more numbers. Let's see if there is a difference in the run times.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n10000 -r100 fibonacci_sum_math(4 * 10**16)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1.62 µs ± 80.4 ns per loop (mean ± std. dev. of 100 runs, 10000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It took <code>1.62</code> microseconds. This is faster than our brute force approach (<code>8.02</code> microseconds) and our improved approach (<code>2.89</code> microseconds). Moreover, it is almost as fast as calculating the sum for $max \_ num = 4000000$ (<code>1.54</code> microseconds). This makes sense, since our pure mathematical approach has a complexity of <code>O(1)</code> (we compute the sum directly, i.e., we are independent of $max \_ num$), whereas our brute force and our improved approach has the complexity of <code>O(n)</code> (we need to loop through the fibonacci sequence, i.e., we are dependent on $max \_ num$). Let's see if we also get the correct result.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong><code>O(1)</code> means constant time. <code>O(n)</code> means linear time. This notation is called <a href="https://en.wikipedia.org/wiki/Big_O_notation">Big-O-Notation</a> and it can be used to express the complexity of an algorithm. You can get more information about it <a href="https://www.youtube.com/watch?v=__vX2sjlpXU">here</a>.
+</div></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fibonacci_sum_math</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>49597426547377776</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We get <code>49597426547377776</code>. However, this is not the same result that we got before! Before, we got <code>49597426547377748</code>. Let's try a few different values for $max \_ num$ to obtain a few more insights about the problem.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="n">max_nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="mi">4000000</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">max_nums</span><span class="p">:</span>    
+    <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;naive&#39;</span><span class="p">:</span> <span class="n">fibonacci_sum_bf</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+        <span class="s1">&#39;improved&#39;</span><span class="p">:</span> <span class="n">fibonacci_sum_impr</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+        <span class="s1">&#39;math&#39;</span><span class="p">:</span> <span class="n">fibonacci_sum_math</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>10</th>
+      <th>1000</th>
+      <th>1000000</th>
+      <th>4000000</th>
+      <th>1000000000000000</th>
+      <th>10000000000000000</th>
+      <th>40000000000000000</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>naive</th>
+      <td>10</td>
+      <td>798</td>
+      <td>1089154</td>
+      <td>4613732</td>
+      <td>652484772464328</td>
+      <td>11708364174233842</td>
+      <td>49597426547377748</td>
+    </tr>
+    <tr>
+      <th>improved</th>
+      <td>10</td>
+      <td>798</td>
+      <td>1089154</td>
+      <td>4613732</td>
+      <td>652484772464328</td>
+      <td>11708364174233842</td>
+      <td>49597426547377748</td>
+    </tr>
+    <tr>
+      <th>math</th>
+      <td>10</td>
+      <td>798</td>
+      <td>1089154</td>
+      <td>4613732</td>
+      <td>652484772464328</td>
+      <td>11708364174233852</td>
+      <td>49597426547377776</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Okay, the sums differ already for $max \_ num = 10^{16}$. For the smaller values of $max \_ num$ the sum is correct. Why is that? Well, our pure mathematical approach suffers from floating point issues. Float variables in standard Python can be of <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a> double precision at maximum. However, we need higher precision here. What can we do? Well, there is a Python module called <a href="https://docs.python.org/3/library/decimal.html">decimal</a>, which allows a higher precision (for additional information about <code>decimal</code> you can also check out <a href="https://blog.teclado.com/decimal-vs-float-in-python/">this blog post</a>). So, let's adjust our code by integrating the <code>decimal</code> module.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong>You can read more about floating point arithmetic in the <a href="https://nbviewer.jupyter.org/github/fastai/numerical-linear-algebra/blob/master/nbs/1.%20Why%20are%20we%20here.ipynb">first lecture</a> of the <a href="https://www.fast.ai/2017/07/17/num-lin-alg/">Computation Linear Algebra</a> course from <a href="https://www.fast.ai/">fastai</a> taught by <a href="https://twitter.com/math_rachel">Rachel Thomas</a>.
+</div></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">fibonacci_sum_math2</span><span class="p">(</span><span class="n">max_num</span><span class="p">):</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">Context</span><span class="p">(</span><span class="n">prec</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_05UP</span><span class="p">)</span>
+    <span class="n">setcontext</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    
+    <span class="c1"># phi and psi</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">Decimal</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">())</span> <span class="o">/</span> <span class="n">Decimal</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">psi</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Decimal</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">())</span> <span class="o">/</span> <span class="n">Decimal</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># get k through the inverse fibonacci function</span>
+    <span class="k">def</span> <span class="nf">inverse_fib</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">fn</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">phi</span><span class="p">)))</span>
+    
+    <span class="n">k</span> <span class="o">=</span> <span class="n">inverse_fib</span><span class="p">(</span><span class="n">max_num</span><span class="p">)</span> <span class="o">//</span> <span class="mi">3</span>
+    
+    <span class="c1"># compute sum</span>
+    <span class="n">phi3</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">psi3</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        
+    <span class="nb">sum</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">Decimal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">Decimal</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">())</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="n">phi3</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">context</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">phi3</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi3</span><span class="p">))</span> <span class="o">-</span>
+        <span class="n">psi3</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">context</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">psi3</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">psi3</span><span class="p">))</span>
+    <span class="p">)))</span>
+    
+    <span class="k">return</span> <span class="nb">sum</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are actually not too many changes. We just need to set the precison over a <code>context</code> object, and wrap float values with the <code>Decimal</code> class. Mathematical operations are executed either over the <code>Decimal</code> or the <code>context</code> objects. Okay, let's calculate the sum for $max \_ num = 4 \cdot 10^{16}$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fibonacci_sum_math2</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>49597426547377748</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sum is <code>49597426547377748</code>. This is the correct result finally. Let's also check the other values for $max \_ num$.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="n">max_nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="mi">4000000</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">max_nums</span><span class="p">:</span>
+    <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;naive&#39;</span><span class="p">:</span> <span class="n">fibonacci_sum_bf</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+        <span class="s1">&#39;improved&#39;</span><span class="p">:</span> <span class="n">fibonacci_sum_impr</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+        <span class="s1">&#39;math&#39;</span><span class="p">:</span> <span class="n">fibonacci_sum_math2</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>10</th>
+      <th>1000</th>
+      <th>1000000</th>
+      <th>4000000</th>
+      <th>1000000000000000</th>
+      <th>10000000000000000</th>
+      <th>40000000000000000</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>naive</th>
+      <td>10</td>
+      <td>798</td>
+      <td>1089154</td>
+      <td>4613732</td>
+      <td>652484772464328</td>
+      <td>11708364174233842</td>
+      <td>49597426547377748</td>
+    </tr>
+    <tr>
+      <th>improved</th>
+      <td>10</td>
+      <td>798</td>
+      <td>1089154</td>
+      <td>4613732</td>
+      <td>652484772464328</td>
+      <td>11708364174233842</td>
+      <td>49597426547377748</td>
+    </tr>
+    <tr>
+      <th>math</th>
+      <td>10</td>
+      <td>798</td>
+      <td>1089154</td>
+      <td>4613732</td>
+      <td>652484772464328</td>
+      <td>11708364174233842</td>
+      <td>49597426547377748</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All the numbers look good now. Next, let's also check the run time.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> -n1000 -r10 fibonacci_sum_math2(4 * 10**16)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>15.3 ms ± 89.9 µs per loop (mean ± std. dev. of 10 runs, 1000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The function took <code>15.3</code> milliseconds! This is a lot more than before! This is actually the disadvantage of the <code>decimal</code> module. It is slow! To have a faster execution time, <a href="https://twitter.com/OussaZaki">Oussama Zaki</a> suggests to use a programming language that supports a high floating point precision like the <a href="https://en.wikipedia.org/wiki/Wolfram_Language">Wolfram Language</a>. However, the Wolfram Language is proprietary. In my understanding, it can only be used in the <a href="https://en.wikipedia.org/wiki/Wolfram_Mathematica">Wolfram Mathematica</a> software system. So, I was looking for an alternative and I found out that the programming language <a href="https://en.wikipedia.org/wiki/Fortran">Fortran</a> offers a higher floating point precision as well. Well, Fortran is typically used for numerical computing. The original <a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms">BLAS</a> library is written in Fortran. BLAS is a linear algebra library, that is included in e.g., <a href="https://en.wikipedia.org/wiki/NumPy">NumPy</a> or Mathematica! So, let's transform our pure mathematical approach from Python into Fortran.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">function </span><span class="n">reverse_fib</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="c">! function that calculates the reverse fibonacci number, i.e., given the fibonacci number</span>
+<span class="c">! it calculates which fibonacci number it is in the fibonacci sequence (e.g., the 3rd, 10th)</span>
+<span class="k">implicit none</span>
+
+        <span class="c">! input (fibonacci number fn) and output (place of fn in fibonacci sequence)</span>
+        <span class="kt">real</span><span class="o">*</span><span class="mi">16</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fn</span>
+        <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">n</span>
+
+        <span class="c">! constants as long double (necessary because otherwise we get rounding errors)</span>
+        <span class="kt">real</span><span class="o">*</span><span class="mi">16</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">c_1</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="kt">real</span><span class="o">*</span><span class="mi">16</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">c_2</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="kt">real</span><span class="o">*</span><span class="mi">16</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">c_4</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="kt">real</span><span class="o">*</span><span class="mi">16</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">c_5</span> <span class="o">=</span> <span class="mi">5</span>
+
+        <span class="c">! calculating phi</span>
+        <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">phi</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_1</span> <span class="o">+</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">c_5</span><span class="p">))</span> <span class="o">/</span> <span class="n">c_2</span>
+
+        <span class="c">! calcluate output</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">anint</span><span class="p">(</span><span class="nb">log</span><span class="p">((</span><span class="n">fn</span> <span class="o">*</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">c_5</span><span class="p">)</span> <span class="o">+</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">c_5</span> <span class="o">*</span> <span class="p">(</span><span class="n">fn</span><span class="o">**</span><span class="n">c_2</span><span class="p">)</span> <span class="o">-</span> <span class="n">c_4</span><span class="p">))</span> <span class="o">/</span> <span class="n">c_2</span><span class="p">)</span> <span class="o">/</span> <span class="nb">log</span><span class="p">(</span><span class="n">phi</span><span class="p">))</span>
+<span class="k">end function</span>
+
+
+<span class="k">program </span><span class="n">fib_sum</span>
+<span class="c">! program that calculates the sum of the even fibonacci numbers which do not exceed</span>
+<span class="c">! the number 4 * 10**16</span>
+<span class="k">implicit none</span>
+
+    <span class="c">! the maximum number the fibonacci numbers are not allowed to exceed</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">max_num</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="mi">1</span><span class="mf">0.0</span><span class="o">**</span><span class="mi">16</span>
+
+    <span class="c">! define some variables that are needed for calculation</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">phi</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">psi</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">phi3</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">psi3</span>
+
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">k</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">reverse_fib</span>
+
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">temp_1</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">temp_2</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">temp_3</span>
+
+    <span class="c">! declare our sum as long integer (otherwise with a normal integer we always get the</span>
+    <span class="c">! maximum normal integer when we have big numbers, since they do not fit in)</span>
+    <span class="kt">integer</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">LargeInt_K</span> <span class="o">=</span> <span class="nb">selected_int_kind</span> <span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+    <span class="kt">integer</span> <span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">LargeInt_K</span><span class="p">)</span> <span class="kd">::</span> <span class="nb">sum</span>
+
+    <span class="c">! constants as long double (necessary because otherwise we get rounding errors)</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">c_1</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">c_2</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">c_3</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="kt">real</span><span class="o">*</span><span class="mi">16</span> <span class="kd">::</span> <span class="n">c_5</span> <span class="o">=</span> <span class="mi">5</span>
+
+
+    <span class="c">! calculate the sum of the even fibonacci numbers</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_1</span> <span class="o">+</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">c_5</span><span class="p">))</span> <span class="o">/</span> <span class="n">c_2</span>
+    <span class="n">psi</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_1</span> <span class="o">-</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">c_5</span><span class="p">))</span> <span class="o">/</span> <span class="n">c_2</span>
+
+    <span class="n">phi3</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">**</span> <span class="n">c_3</span>
+    <span class="n">psi3</span> <span class="o">=</span> <span class="n">psi</span> <span class="o">**</span> <span class="n">c_3</span>
+
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">floor</span><span class="p">(</span><span class="n">reverse_fib</span><span class="p">(</span><span class="n">max_num</span><span class="p">)</span> <span class="o">/</span> <span class="n">c_3</span><span class="p">)</span>
+
+    <span class="n">temp_1</span> <span class="o">=</span> <span class="n">c_1</span> <span class="o">/</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">c_5</span><span class="p">)</span>
+    <span class="n">temp_2</span> <span class="o">=</span> <span class="n">phi3</span> <span class="o">*</span> <span class="p">((</span><span class="n">c_1</span> <span class="o">-</span> <span class="n">phi3</span><span class="o">**</span><span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">c_1</span> <span class="o">-</span> <span class="n">phi3</span><span class="p">))</span>
+    <span class="n">temp_3</span> <span class="o">=</span> <span class="n">psi3</span> <span class="o">*</span> <span class="p">((</span><span class="n">c_1</span> <span class="o">-</span> <span class="n">psi3</span><span class="o">**</span><span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">c_1</span> <span class="o">-</span> <span class="n">psi3</span><span class="p">))</span>
+
+    <span class="nb">sum</span> <span class="o">=</span> <span class="nb">anint</span><span class="p">(</span><span class="n">temp_1</span> <span class="o">*</span> <span class="p">(</span><span class="n">temp_2</span> <span class="o">-</span> <span class="n">temp_3</span><span class="p">))</span>
+
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span><span class="s2">&quot;result: &quot;</span><span class="p">,</span> <span class="nb">sum</span>
+<span class="k">end program</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The code looks quite long, but basically it is the same as our Python version. I just needed to take care of the following things:</p>
+<ul>
+<li>To initialize variables with a higher precision we need to use the data type <code>real*16</code>. However, depending on your Fortran compiler, you might have problems with that data type. If so, then you can check out this <a href="https://stackoverflow.com/questions/43810421/error-old-style-type-declaration-real16-not-supported">post on Stackoverflow</a>.</li>
+<li>I have not found a way to calculate the log of a number with an arbitrary base. However, this is not a problem. You can easily calculate it as shown in the code. For more information, you can check out this <a href="https://en.wikipedia.org/wiki/Logarithm#Change_of_base">Wikipedia article</a> or this <a href="https://stackoverflow.com/a/36971641">post on Stackoverflow</a>.</li>
+<li>I had to wrap constant numbers as <code>real*16</code> as well (<code>c_1</code>, <code>c_2</code>, <code>c_3</code>, <code>c_4</code>, <code>c_5</code>). Before, I just put them in the code, but I got a small error. I assume constant numbers are of a lower precision datatype by default and when they are used in an expression the whole expression seems to be converted to this lower precision datatype as well. Probably, there is a better way to implement this, but I have not found out how to do this, yet.</li>
+<li>When we cast the floating value to integer at the end, we also need a bigger integer datatype. How to initialize bigger integers in Fortran is described <a href="https://stackoverflow.com/a/3204981">here</a>.</li>
+</ul>
+<p>It's actually the first time I wrote Fortran code. Thus, the code probably looks quite bad to a Fortran programmer (you can find a Fortran tutorial <a href="https://www.tutorialspoint.com/fortran/index.htm">here</a>), but I simply wanted to show if we can use Fortran to obtain the correct result. So, let's try it out. Save the above code in a file called <code>fib_sum.f90</code>. If you don't have a Fortran compiler, you can install e.g. the <code>gcc</code> package (beside a compiler for <code>C</code> and <code>C++</code> it also offers a compiler for Fortran called <code>gfortran</code>). You can find instructions on how to install <code>gcc</code>, for instance, on <code>Ubuntu</code> <a href="https://linuxize.com/post/how-to-install-gcc-compiler-on-ubuntu-18-04/">here</a> and for <code>OSX</code> via <code>brew</code> <a href="https://formulae.brew.sh/formula/gcc">here</a>. After you installed <code>gcc</code>, you can compile the Fortran file using the following command:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span>gfortran -o fib_sum fib_sum.f90
+<span class="sb">`</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>An executable file named <code>fib_sum</code> should have been created. Let's call it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span>./fib_sum
+<span class="sb">`</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You should get the following output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span>result:     <span class="m">49597426547377748</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We obtain <code>49597426547377748</code>. This is the correct result. If we chose the lower precision datatype <code>real*8</code> instead of <code>real*16</code>, we should have received the incorrect result of <code>49597426547377776</code> again (you can try it out!). Now, let's also measure the time. On the command line we can do this as follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="nb">time</span> ./fib_sum
+<span class="sb">`</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We should receive the following (or similar) output:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span>result:     <span class="m">49597426547377748</span>
+./fib_sum  <span class="m">0</span>.00s user <span class="m">0</span>.00s system <span class="m">69</span>% cpu <span class="m">0</span>.008 total
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It took <code>0.008</code> seconds, which are <code>8</code> milliseconds. This is faster than our code using the <code>decimal</code> module. On the other side, it is slower than our Python code implementing our brute force and improved approach. However, it's not so clear how comparable the time measurement between the <code>%timeit</code> magic and the command <code>time</code> for the command line are. 
+Fortran should be quite fast actually. Nevertheless, we got the correct solution and could definitely speed up.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/blog/project%20euler/math/2021/03/25/project-euler-2.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blog about various topics in the field of Artificial Intelligence and IT Security.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/bam098" title="bam098"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/_bam098" title="_bam098"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
